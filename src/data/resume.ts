@@ -30,7 +30,6 @@ export const experiences: {
 }[] = [
   {
     company: "에이아이노미스",
-    href: "https://www.ainomis.com/ko",
     role: "Web Developer",
     period: "2020.11 ~ 2023.12 (3년 1개월)",
     summary: [
@@ -97,6 +96,7 @@ export const skills: { category: string; items: string[] }[] = [
 export const languages = [
   "영어 : 일상 회화 가능",
   "일본어 : 고급 및 비즈니스 회화 가능 (JLPT N1)",
+  "프랑스어 : 초급 회화 가능 (DELF A1)",
 ];
 
 export const certificates = ["정보처리기사"];
