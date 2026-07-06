@@ -16,19 +16,34 @@ export const profile = {
   ],
 };
 
-export const careers = [
+// 경력(depth-1). 각 경력에 속한 프로젝트는 projects.json 의 `group` 값으로
+// 매칭해 하위(depth-2)로 묶는다.
+// showAffiliation: true 인 그룹은 프로젝트마다 소속(team)을 기간 옆에 노출한다.
+export const experiences: {
+  company: string;
+  href?: string;
+  role?: string;
+  period?: string;
+  summary?: string[];
+  group: string;
+  showAffiliation?: boolean;
+}[] = [
   {
     company: "에이아이노미스",
     href: "https://www.ainomis.com/ko",
     role: "Web Developer",
     period: "2020.11 ~ 2023.12 (3년 1개월)",
-    points: [
-      "회사 메인 프로덕트(nocodingAI) 개발 담당",
+    summary: [
       "AI 모델 추론 서버 Serverless 아키텍처 구축",
       "FE, BE CI/CD 파이프라인 구축",
       "인턴 및 신입 개발자 대상 개발 스터디 진행 (git, docker, JS)",
-      "기타 사내 프로젝트 및 외주업무 풀스택 개발",
     ],
+    group: "ainomis",
+  },
+  {
+    company: "기타",
+    group: "etc",
+    showAffiliation: true,
   },
 ];
 
