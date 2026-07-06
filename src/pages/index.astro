@@ -1,0 +1,333 @@
+---
+import projects from "../data/projects.json";
+import {
+  profile,
+  careers,
+  skills,
+  languages,
+  certificates,
+} from "../data/resume";
+
+const clean = (s: string) => s.replace(/\n/g, " ");
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={`${profile.name} — ${profile.title}`} />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+    <title>이력서 — {profile.name}</title>
+  </head>
+  <body>
+    <main>
+      <header class="intro">
+        <h1>{profile.name}</h1>
+        <p class="title">{profile.title}</p>
+        <p class="lead">{profile.intro}</p>
+        <nav class="links">
+          {
+            profile.links.map((l) => (
+              <a href={l.href} target="_blank" rel="noopener">
+                {l.label}
+              </a>
+            ))
+          }
+        </nav>
+      </header>
+
+      <section>
+        <h2>경력</h2>
+        {
+          careers.map((c) => (
+            <article class="entry">
+              <h3>
+                {c.href ? (
+                  <a href={c.href} target="_blank" rel="noopener">
+                    {c.company}
+                  </a>
+                ) : (
+                  c.company
+                )}
+              </h3>
+              <p class="meta">
+                {c.role} · {c.period}
+              </p>
+              <ul>
+                {c.points.map((p) => (
+                  <li>{p}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </section>
+
+      <section>
+        <h2>프로젝트</h2>
+        {
+          projects.map((p) => (
+            <article class="entry">
+              <h3>
+                {p.link ? (
+                  <a href={p.link} target="_blank" rel="noopener">
+                    {clean(p.title)}
+                  </a>
+                ) : (
+                  clean(p.title)
+                )}
+              </h3>
+              <p class="meta">
+                {p.team} · {p.start} ~ {p.end}
+              </p>
+              {p.storeLinks && (
+                <p class="meta store">
+                  {p.storeLinks.ios && (
+                    <a href={p.storeLinks.ios} target="_blank" rel="noopener">
+                      App Store
+                    </a>
+                  )}
+                  {p.storeLinks.android && (
+                    <a
+                      href={p.storeLinks.android}
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      Google Play
+                    </a>
+                  )}
+                </p>
+              )}
+              <div class="body">
+                {p.details.split("\n").map((para) => (
+                  <p>{para}</p>
+                ))}
+              </div>
+              <p class="stacks">{p.stacks}</p>
+            </article>
+          ))
+        }
+      </section>
+
+      <section>
+        <h2>기술</h2>
+        {
+          skills.map((s) => (
+            <article class="entry">
+              <h3>{s.category}</h3>
+              <ul>
+                {s.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </section>
+
+      <section>
+        <h2>언어 · 자격</h2>
+        <div class="two-col">
+          <article class="entry">
+            <h3>외국어</h3>
+            <ul>
+              {languages.map((l) => <li>{l}</li>)}
+            </ul>
+          </article>
+          <article class="entry">
+            <h3>자격증</h3>
+            <ul>
+              {certificates.map((c) => <li>{c}</li>)}
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <footer>감사합니다.</footer>
+    </main>
+  </body>
+</html>
+
+<style>
+  :root {
+    --fg: #1a1a1a;
+    --muted: #8a8a8a;
+    --line: #ececec;
+    --bg: #ffffff;
+  }
+
+  :global(html) {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  :global(body) {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family:
+      "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+      system-ui, "Apple SD Gothic Neo", sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    letter-spacing: -0.01em;
+    word-break: keep-all;
+  }
+
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 120px 24px 96px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Header */
+  .intro h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .intro .title {
+    margin: 0.35rem 0 0;
+    color: var(--muted);
+  }
+
+  .intro .lead {
+    margin: 1.5rem 0 0;
+    font-size: 1.0625rem;
+    line-height: 1.8;
+  }
+
+  .links {
+    margin-top: 1.25rem;
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+
+  /* Sections */
+  section {
+    margin-top: 88px;
+  }
+
+  section > h2 {
+    margin: 0 0 32px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .entry {
+    margin-bottom: 44px;
+  }
+
+  .entry:last-child {
+    margin-bottom: 0;
+  }
+
+  .entry h3 {
+    margin: 0;
+    font-size: 1.1875rem;
+    font-weight: 600;
+  }
+
+  .meta {
+    margin: 0.3rem 0 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .meta.store {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.2rem;
+  }
+
+  .entry ul {
+    margin: 0.9rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .entry li {
+    position: relative;
+    padding-left: 1rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .entry li::before {
+    content: "·";
+    position: absolute;
+    left: 0.1rem;
+    color: var(--muted);
+  }
+
+  .body {
+    margin-top: 0.9rem;
+  }
+
+  .body p {
+    margin: 0 0 0.75rem;
+  }
+
+  .body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .stacks {
+    margin: 1rem 0 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .two-col {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 44px;
+  }
+
+  .two-col .entry {
+    flex: 1 1 200px;
+    margin-bottom: 0;
+  }
+
+  footer {
+    margin-top: 88px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    text-align: right;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 640px) {
+    main {
+      padding: 72px 20px 64px;
+    }
+
+    .intro h1 {
+      font-size: 2rem;
+    }
+
+    section {
+      margin-top: 64px;
+    }
+  }
+</style>
