@@ -67,11 +67,23 @@ export const Resume = () => {
                   <h4 className="text-[1.0625rem] font-semibold">
                     {[role.org, role.title].filter(Boolean).join(" · ")}
                   </h4>
-                  {role.note && <p className={metaCls}>{role.note}</p>}
-                  <ul className={bulletUl}>
+                  {role.desc && <p className={metaCls}>{role.desc}</p>}
+                  <ul className="mt-[0.9rem] flex flex-col gap-3">
                     {role.points.map((p) => (
-                      <li key={p} className={bulletLi}>
-                        {p}
+                      <li key={p.text} className={bulletLi}>
+                        <span className="text-[0.95rem]">{p.text}</span>
+                        {p.tags && p.tags.length > 0 && (
+                          <div className="mt-1.5 flex flex-wrap gap-1.5">
+                            {p.tags.map((t) => (
+                              <span
+                                key={t}
+                                className="rounded border border-line px-2 py-0.5 text-[0.7rem] font-medium text-muted"
+                              >
+                                {t}
+                              </span>
+                            ))}
+                          </div>
+                        )}
                       </li>
                     ))}
                   </ul>

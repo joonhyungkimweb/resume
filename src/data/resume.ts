@@ -16,7 +16,9 @@ export const profile = {
   ],
 };
 
-// 경력: 회사(depth-1) → 역할(depth-2). 각 역할은 성과 위주 points 로 기술.
+// 경력: 회사(depth-1) → 역할(depth-2).
+// 각 역할은 desc(간단한 설명) + points(성과)로 구성.
+// 각 성과는 여러 역량(tags)에 매핑될 수 있다(1:n).
 export const experiences: {
   company: string;
   href?: string;
@@ -24,8 +26,8 @@ export const experiences: {
   roles: {
     org?: string;
     title: string;
-    note?: string;
-    points: string[];
+    desc?: string;
+    points: { text: string; tags?: string[] }[];
   }[];
 }[] = [
   {
@@ -35,13 +37,24 @@ export const experiences: {
       {
         org: "금융쇼핑 PA",
         title: "웹 프론트엔드 엔지니어",
-        note: "신용/대출 관리 플랫폼 담당",
+        desc: "신용/대출 관리 플랫폼의 웹·웹뷰 프론트엔드 담당",
         points: [
-          "데이터 기반으로 담당 서비스 핵심 지표 개선 — 진입 전환율 150%↑, CTA 클릭율 112%↑, 알림 전환율 2배",
-          "레거시 스타일 시스템(BPL) → 사내 디자인 시스템(BDS)/Tailwind 마이그레이션을 주도, CDN 의존성 제거 등 대규모 기술 부채 청산",
-          "점진 배포·QA 체계·에러 모니터링(Sentry)·보안 대응으로 안정적 운영, 연 100건 이상 이슈 대응",
-          "공용 컴포넌트·유틸, Tailwind 툴링 개선, 문서화로 팀 개발 생산성에 기여",
-          "CDP·에어브릿지·Amplitude 기반 end-to-end 트래킹 구축으로 데이터 기반 개선 체계 마련",
+          {
+            text: "CDP·Amplitude 트래킹을 구축해 데이터 기반으로 핵심 지표 개선 — 진입 전환율 150%↑, CTA 클릭율 112%↑, 알림 전환율 2배",
+            tags: ["비즈니스"],
+          },
+          {
+            text: "레거시 스타일 시스템(BPL) → 사내 디자인 시스템(BDS)/Tailwind 마이그레이션을 주도, CDN 의존성 제거 등 대규모 기술 부채 청산",
+            tags: ["설계", "생산성"],
+          },
+          {
+            text: "점진 배포·QA 체계·에러 모니터링(Sentry)·보안 대응으로 안정적 운영, 연 100건 이상 이슈 대응",
+            tags: ["품질"],
+          },
+          {
+            text: "공용 컴포넌트·유틸, Tailwind 툴링 개선, 문서화로 팀 개발 생산성에 기여",
+            tags: ["생산성"],
+          },
         ],
       },
     ],
@@ -52,18 +65,34 @@ export const experiences: {
     roles: [
       {
         title: "웹 프론트엔드 엔지니어",
-        note: "사내 프로덕트",
+        desc: "딥러닝·생성형 AI 웹 플랫폼을 MVP부터 풀스택으로 개발 (사내 프로덕트)",
         points: [
-          "딥러닝·생성형 AI 웹 플랫폼을 MVP부터 풀스택으로 개발",
-          "브라우저 학습 성능을 최적화하고, 제한된 GPU 자원에 추론 서버를 순환 배치하는 Kubernetes 서버리스 아키텍처 구축",
-          "Vue→React 마이그레이션을 주도하고 공용 컴포넌트·HOC로 재사용성 개선",
+          {
+            text: "브라우저 GPU 메모리 관리와 데이터 분할로 TensorFlow.js 학습 성능을 크게 개선",
+            tags: ["성능"],
+          },
+          {
+            text: "제한된 GPU 자원에 추론 서버를 순환 배치하는 Kubernetes 서버리스 아키텍처 구축",
+            tags: ["설계", "성능"],
+          },
+          {
+            text: "Vue→React 마이그레이션을 주도하고 공용 컴포넌트·HOC로 재사용성 개선",
+            tags: ["설계", "생산성"],
+          },
         ],
       },
       {
         title: "외주 개발",
+        desc: "다양한 도메인의 외주 프로젝트를 FE·BE 전반 담당 (Soynet, MBC 라디오 mini, Timeflik 등)",
         points: [
-          "Soynet(브랜드 페이지), MBC 라디오 mini(크로스플랫폼 데스크톱 앱), Timeflik(NFT 마켓) 등 다양한 도메인 외주 프로젝트의 FE·BE 전반 담당",
-          "웹뷰 web3 연동 실패, OS별 Electron 기능 제약, 스마트컨트랙트 재설계 등 기술·제약 이슈를 진단해 돌파",
+          {
+            text: "웹뷰 web3 연동 실패, OS별 Electron 기능 제약 등 플랫폼 제약을 진단해 우회 해결",
+            tags: ["문제해결"],
+          },
+          {
+            text: "서버리스·IAM 구성, 경매로의 기획 변경에 맞춘 스마트컨트랙트 재작성 등 요구에 맞는 구조 설계",
+            tags: ["설계"],
+          },
         ],
       },
     ],
@@ -73,16 +102,22 @@ export const experiences: {
     roles: [
       {
         title: "프리랜서",
-        note: "2023",
+        desc: "어린이 영어 독서 앱 개발 (2023)",
         points: [
-          "어린이 영어 독서 앱 개발 — 결제 라이브러리의 deprecated App Store API를 백엔드 영수증 검증으로 우회 해결",
+          {
+            text: "결제 라이브러리의 deprecated App Store API를 백엔드 영수증 검증으로 우회 해결",
+            tags: ["문제해결"],
+          },
         ],
       },
       {
         title: "개인 프로젝트",
-        note: "2024",
+        desc: "NFC 기반 Wifi 자동연결 iOS 앱 (2024)",
         points: [
-          "NFC 기반 Wifi 자동연결 iOS 앱 — iOS가 기본 제공하지 않는 기능을 직접 구현",
+          {
+            text: "iOS가 기본 제공하지 않는 NFC 기반 Wifi 자동 연결을 직접 구현",
+            tags: ["문제해결", "UX"],
+          },
         ],
       },
     ],
