@@ -16,33 +16,76 @@ export const profile = {
   ],
 };
 
-// 경력(depth-1). 각 경력에 속한 프로젝트는 projects.json 의 `group` 값으로
-// 매칭해 하위(depth-2)로 묶는다.
-// showAffiliation: true 인 그룹은 프로젝트마다 소속(team)을 기간 옆에 노출한다.
+// 경력: 회사(depth-1) → 역할(depth-2). 각 역할은 성과 위주 points 로 기술.
 export const experiences: {
   company: string;
   href?: string;
-  role?: string;
   period?: string;
-  summary?: string[];
-  group: string;
-  showAffiliation?: boolean;
+  roles: {
+    org?: string;
+    title: string;
+    note?: string;
+    points: string[];
+  }[];
 }[] = [
   {
-    company: "에이아이노미스",
-    role: "Web Developer",
-    period: "2020.11 ~ 2023.12 (3년 1개월)",
-    summary: [
-      "AI 모델 추론 서버 Serverless 아키텍처 구축",
-      "FE, BE CI/CD 파이프라인 구축",
-      "인턴 및 신입 개발자 대상 개발 스터디 진행 (git, docker, JS)",
+    company: "뱅크샐러드",
+    period: "2024.06 ~ 재직중",
+    roles: [
+      {
+        org: "금융쇼핑 PA",
+        title: "웹 프론트엔드 엔지니어",
+        note: "신용/대출 관리 플랫폼 담당",
+        points: [
+          "데이터 기반으로 담당 서비스 핵심 지표 개선 — 진입 전환율 150%↑, CTA 클릭율 112%↑, 알림 전환율 2배",
+          "레거시 스타일 시스템(BPL) → 사내 디자인 시스템(BDS)/Tailwind 마이그레이션을 주도, CDN 의존성 제거 등 대규모 기술 부채 청산",
+          "점진 배포·QA 체계·에러 모니터링(Sentry)·보안 대응으로 안정적 운영, 연 100건 이상 이슈 대응",
+          "공용 컴포넌트·유틸, Tailwind 툴링 개선, 문서화로 팀 개발 생산성에 기여",
+          "CDP·에어브릿지·Amplitude 기반 end-to-end 트래킹 구축으로 데이터 기반 개선 체계 마련",
+        ],
+      },
     ],
-    group: "ainomis",
+  },
+  {
+    company: "에이아이노미스",
+    period: "2020.11 ~ 2023.12 (3년 1개월)",
+    roles: [
+      {
+        title: "웹 프론트엔드 엔지니어",
+        note: "사내 프로덕트",
+        points: [
+          "딥러닝·생성형 AI 웹 플랫폼을 MVP부터 풀스택으로 개발",
+          "브라우저 학습 성능을 최적화하고, 제한된 GPU 자원에 추론 서버를 순환 배치하는 Kubernetes 서버리스 아키텍처 구축",
+          "Vue→React 마이그레이션을 주도하고 공용 컴포넌트·HOC로 재사용성 개선",
+        ],
+      },
+      {
+        title: "외주 개발",
+        points: [
+          "Soynet(브랜드 페이지), MBC 라디오 mini(크로스플랫폼 데스크톱 앱), Timeflik(NFT 마켓) 등 다양한 도메인 외주 프로젝트의 FE·BE 전반 담당",
+          "웹뷰 web3 연동 실패, OS별 Electron 기능 제약, 스마트컨트랙트 재설계 등 기술·제약 이슈를 진단해 돌파",
+        ],
+      },
+    ],
   },
   {
     company: "기타",
-    group: "etc",
-    showAffiliation: true,
+    roles: [
+      {
+        title: "프리랜서",
+        note: "2023",
+        points: [
+          "어린이 영어 독서 앱 개발 — 결제 라이브러리의 deprecated App Store API를 백엔드 영수증 검증으로 우회 해결",
+        ],
+      },
+      {
+        title: "개인 프로젝트",
+        note: "2024",
+        points: [
+          "NFC 기반 Wifi 자동연결 iOS 앱 — iOS가 기본 제공하지 않는 기능을 직접 구현",
+        ],
+      },
+    ],
   },
 ];
 
