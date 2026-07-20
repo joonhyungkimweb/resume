@@ -1,7 +1,6 @@
 import {
   profile,
   experiences,
-  skills,
   languages,
   certificates,
 } from "../data/resume";
@@ -90,22 +89,6 @@ export const Resume = () => {
                 </div>
               ))}
             </div>
-          </article>
-        ))}
-      </section>
-
-      <section className={sectionCls}>
-        <h2 className={h2Cls}>기술</h2>
-        {skills.map((s) => (
-          <article key={s.category} className="mb-11 last:mb-0">
-            <h3 className="text-[1.1875rem] font-semibold">{s.category}</h3>
-            <ul className={bulletUl}>
-              {s.items.map((item) => (
-                <li key={item} className={bulletLi}>
-                  {item}
-                </li>
-              ))}
-            </ul>
           </article>
         ))}
       </section>
